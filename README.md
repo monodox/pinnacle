@@ -19,8 +19,11 @@
 - `src/pages/site`: Public-facing landing pages (Home, etc.)
 - `src/pages/auth`: Authentication screens (Login, Signup, Forgot Password, Reset Password)
 - `src/pages/legal`: Legal documents (Terms, Privacy, Cookies)
+- `src/pages/console`: Internal enterprise platform (Dashboard, Research, Agents, Reports, Settings)
 - `src/components/ui`: Reusable UI primitives (shadcn/ui based)
-- `src/components/app`: Application-specific layout and business logic components
+- `src/components/app`: Application-specific global components
+- `src/components/console`: Console-specific layout components (ConsoleHeader, ConsoleSidebar)
+- `src/assets`: Static graphical assets (icons, logo)
 
 ## Getting Started
 

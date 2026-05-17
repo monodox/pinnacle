@@ -11,8 +11,11 @@ Welcome! If you are an AI agent or a new teammate working on the **Pinnacle** pr
 - `/src/pages/site`: Public-facing landing pages (Home, etc.)
 - `/src/pages/auth`: Authentication screens (Login, Signup, Forgot Password, Reset Password)
 - `/src/pages/legal`: Legal documents (Terms, Privacy, Cookies)
+- `/src/pages/console`: Internal enterprise platform (Dashboard, Research, Agents, Reports, Settings)
 - `/src/components/ui`: Reusable UI primitives (shadcn/ui based)
-- `/src/components/app`: Application-specific layout and business logic components
+- `/src/components/app`: Application-specific global components
+- `/src/components/console`: Console-specific layout components (ConsoleHeader, ConsoleSidebar)
+- `/src/assets`: Static graphical assets (icons, logo) tracked via `.gitkeep`
 
 ## 3. Build and Test Commands
 - **Install Dependencies**: `npm install`

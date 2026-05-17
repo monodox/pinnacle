@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Established the core `Console` platform architecture including `ConsoleLayout`, `ConsoleSidebar`, and `ConsoleHeader`.
+- Created foundational enterprise pages within the console: `Dashboard`, `Settings`, `Reports`, `Agents`, and `Research`.
+- Scaffolded asset directories (`src/assets/icons` and `src/assets/logo`) for static graphical assets.
 - Added `AGENTS.md` to provide comprehensive guidelines for AI coding agents and contributors.
 - Created domain-specific layouts (`AuthLayout`, `LegalLayout`, `SiteLayout`) and modularized the Home page.
 ### Fixed
