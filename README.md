@@ -15,6 +15,13 @@
 - Lucide React
 - shadcn/ui
 
+## Project Structure
+- `src/pages/site`: Public-facing landing pages (Home, etc.)
+- `src/pages/auth`: Authentication screens (Login, Signup, Forgot Password, Reset Password)
+- `src/pages/legal`: Legal documents (Terms, Privacy, Cookies)
+- `src/components/ui`: Reusable UI primitives (shadcn/ui based)
+- `src/components/app`: Application-specific layout and business logic components
+
 ## Getting Started
 
 ### Prerequisites

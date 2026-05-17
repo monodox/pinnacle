@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Initial project setup with React, Vite, Tailwind CSS, and shadcn/ui.
-- Basic UI components (Button, Card).
-- Initial project documentation (README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, ROADMAP).
-- Base environment files setup.
+- Added `AGENTS.md` to provide comprehensive guidelines for AI coding agents and contributors.
+- Created domain-specific layouts (`AuthLayout`, `LegalLayout`, `SiteLayout`) and modularized the Home page.
+### Fixed
+- Resolved all TypeScript warnings related to unused React imports across the codebase.
