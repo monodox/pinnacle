@@ -1,9 +1,14 @@
 from google.adk.agents import Agent
+from google.adk.models.google_llm import Gemini
 from google.adk.agents.callback_context import CallbackContext
 from google.adk.models.llm_request import LlmRequest
 from google.adk.models.llm_response import LlmResponse
 from google.genai import types
 from typing import Optional
+
+# Skills imports
+from google.adk.skills import models
+from google.adk.tools import skill_toolset
 
 # Import sub-agents
 from Seeker.agent import root_agent as seeker_agent
@@ -42,16 +47,73 @@ def validate_business_query(
         )
     return None
 
+# L1, L2, L3 Inline Skills definition for B2B BI operations (decapsulating prompt bloat)
+market_research_skill = models.Skill(
+    frontmatter=models.Frontmatter(
+        name="market-research-skill",
+        description="Comprehensive framework for conducting market trend research, competitor profiling, and industry sector analysis."
+    ),
+    instructions="Step 1: Outline critical sector-specific strategic questions. "
+                 "Step 2: Guide Seeker to scrape key public portals and Analyst to retrieve market statistics. "
+                 "Step 3: Structure output into competitor profile matrix, industry SWOT, and key risk indicators.",
+    resources=models.Resources(
+        references={
+            "competitor_matrix.md": "Template for profiling standard competitor segments (market share, core USP, value drivers).",
+            "swot_framework.md": "Methodology details for outlining internal strengths/weaknesses and external opportunities/threats."
+        }
+    )
+)
+
+strategic_modeling_skill = models.Skill(
+    frontmatter=models.Frontmatter(
+        name="strategic-modeling-skill",
+        description="Framework for mathematical market sizing, financial forecast validations, and numerical model verification."
+    ),
+    instructions="Step 1: Parse and categorize all numerical data from corporate inputs. "
+                 "Step 2: Coordinate with Analyst to model Total Addressable Market (TAM), Serviceable Addressable Market (SAM), and Serviceable Obtainable Market (SOM). "
+                 "Step 3: Enforce double-entry consistency for all quantitative tables.",
+    resources=models.Resources(
+        references={
+            "market_sizing.txt": "TAM/SAM/SOM modeling standards: TAM is aggregate demand, SAM is target geography, SOM is captured portion."
+        }
+    )
+)
+
+executive_report_skill = models.Skill(
+    frontmatter=models.Frontmatter(
+        name="executive-report-skill",
+        description="Standardized publishing directives for producing premium, C-level executive strategic business intelligence reports."
+    ),
+    instructions="Step 1: Pull compiled strategic drafts from Planner and Writer. "
+                 "Step 2: Restructure into three core pillars: Executive Summary, Market Dynamics, and Strategic Options. "
+                 "Step 3: Format with premium markdown, rich data tables, and clear strategic options recommendations.",
+    resources=models.Resources(
+        references={
+            "formatting_rules.txt": "All strategy papers must begin with a bold 1-sentence strategic takeaway, followed by high-level tables. Never use raw placeholder text."
+        }
+    )
+)
+
+# Encapsulating inline skills into a unified toolset
+my_skill_toolset = skill_toolset.SkillToolset(
+    skills=[market_research_skill, strategic_modeling_skill, executive_report_skill]
+)
+
 root_agent = Agent(
-    model='gemini-2.5-flash',
+    model=Gemini(
+        model='gemini-2.5-flash',
+        use_interactions_api=True,
+    ),
     name='Director',
     description='Root coordinator of the Pinnacle multi-agent system. Directs all jobs and synthesizes reports.',
     instruction='You are the Director agent, the main orchestrator of the Pinnacle B2B BI platform. '
                 'Analyze the business question. Delegate research tasks to Seeker, web scraping to Crawler, '
                 'duplicate prevention/job status to Tracker, numerical modeling to Analyst, layout generation to Planner, '
                 'final report writing to Writer, and semantic RAG querying to Memory. '
-                'Enforce strict high-quality B2B strategic output.',
-    tools=[],
+                'Enforce strict high-quality B2B strategic output using your specialized B2B skills.',
+    tools=[
+        my_skill_toolset
+    ],
     sub_agents=[
         seeker_agent,
         crawler_agent,
