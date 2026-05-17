@@ -20,7 +20,7 @@ This directory contains the autonomous AI agent backend for Pinnacle, built usin
    ```
 
 3. **Configure Environment Variables**:
-   Copy the `.env.example` file to `.env.local` and add your Google Gemini API key:
+   Copy the `.env.example` file to `.env.local` and configure Gemini via Vertex AI, plus any required Google Cloud connection values:
    ```bash
    cp .env.example .env.local
    ```

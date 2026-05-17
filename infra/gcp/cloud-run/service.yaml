@@ -1,0 +1,45 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: pinnacle-agents-service
+  namespace: pinnacle-core
+  labels:
+    cloud.googleapis.com/location: us-central1
+spec:
+  template:
+    metadata:
+      annotations:
+        # Scale capabilities for enterprise loads
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "20"
+        # Enable VPC access connector if needed to talk to enterprise networks
+        # run.googleapis.com/vpc-access-connector: "pinnacle-vpc-connector"
+    spec:
+      containerConcurrency: 80
+      # Assign a unique Cryptographic Service Account (Agent Identity)
+      serviceAccountName: agent-identity-sa@pinnacle-gcp.iam.gserviceaccount.com
+      containers:
+      - image: gcr.io/pinnacle-gcp/pinnacle-agents:latest
+        resources:
+          limits:
+            cpu: "2000m"
+            memory: 2Gi
+        env:
+        - name: GOOGLE_API_KEY
+          value: "projects/pinnacle-gcp/secrets/gemini-api-key/versions/latest"
+        - name: A2A_PROTOCOL_VERSION
+          value: "v1.2"
+        - name: A2A_REGISTRY_URL
+          value: "https://registry.agentplatform.google.com"
+        - name: VERTEX_AI_PROJECT_ID
+          value: "pinnacle-gcp"
+        - name: VERTEX_AI_LOCATION
+          value: "us-central1"
+        # Enabling Vertex AI Search / Custom Grounding config
+        - name: GROUNDING_ENGINE
+          value: "vertex-ai-search"
+        - name: RAG_DATASTORE_ID
+          value: "pinnacle-knowledge-base"
+        ports:
+        - name: http1
+          containerPort: 8000

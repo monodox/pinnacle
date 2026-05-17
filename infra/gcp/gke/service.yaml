@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pinnacle-agents-service
+  namespace: pinnacle-core
+  labels:
+    app: pinnacle-agents
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+    name: adk-web
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: a2a-protocol
+  selector:
+    app: pinnacle-agents

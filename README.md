@@ -19,6 +19,7 @@
 
 ## Project Structure
 - `agents`: Autonomous AI Agent backend (Python ADK) containing Seeker, Crawler, Tracker, Analyst, Planner, Writer, Memory, and Director.
+- `infra`: Google Cloud deployment scaffolding, env examples, and connection notes.
 - `src/pages/site`: Public-facing landing pages (Home, etc.)
 - `src/pages/auth`: Authentication screens (Login, Signup, Forgot Password, Reset Password)
 - `src/pages/legal`: Legal documents (Terms, Privacy, Cookies)

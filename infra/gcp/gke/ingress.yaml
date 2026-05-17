@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pinnacle-agents-ingress
+  namespace: pinnacle-core
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "pinnacle-agent-ip"
+    networking.gke.io/managed-certificates: "pinnacle-ssl-cert"
+spec:
+  rules:
+  - host: agents.pinnacle-bi.com
+    http:
+      paths:
+      - path: /a2a
+        pathType: Prefix
+        backend:
+          service:
+            name: pinnacle-agents-service
+            port:
+              number: 8080
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pinnacle-agents-service
+            port:
+              number: 80

@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pinnacle-agents-backend
+  namespace: pinnacle-core
+  labels:
+    app: pinnacle-agents
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pinnacle-agents
+  template:
+    metadata:
+      labels:
+        app: pinnacle-agents
+      annotations:
+        # Bind K8s service account to Google Cloud service account for Agent Identity
+        iam.gke.io/gcp-service-account: agent-identity-sa@pinnacle-gcp.iam.gserviceaccount.com
+    spec:
+      serviceAccountName: pinnacle-agent-identity
+      containers:
+      - name: adk-agent-runtime
+        image: gcr.io/pinnacle-gcp/pinnacle-agents:latest
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+        ports:
+        - containerPort: 8000
+          name: adk-web
+        - containerPort: 8080
+          name: a2a-endpoint
+        resources:
+          limits:
+            cpu: "2"
+            memory: 4Gi
+          requests:
+            cpu: "500m"
+            memory: 1Gi
+        env:
+        - name: GOOGLE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: gemini-api-credentials
+              key: api-key
+        - name: A2A_PROTOCOL_VERSION
+          value: "v1.2"
+        - name: A2A_IDENTITY_CERTIFICATE
+          value: "/etc/agent-identity/tls.crt"
+        - name: VERTEX_AI_PROJECT_ID
+          value: "pinnacle-gcp"
+        - name: VERTEX_AI_LOCATION
+          value: "us-central1"
+        volumeMounts:
+        - name: agent-identity-certs
+          mountPath: /etc/agent-identity
+          readOnly: true
+        - name: cache-volume
+          mountPath: /tmp
+      volumes:
+      - name: agent-identity-certs
+        secret:
+          secretName: pinnacle-agent-identity-tls
+      - name: cache-volume
+        emptyDir: {}
