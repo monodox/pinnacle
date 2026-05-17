@@ -1,9 +1,9 @@
-from google.adk.agents.llm_agent import Agent
+from google.adk.agents import Agent
 
 root_agent = Agent(
-    model='gemini-flash-latest',
+    model='gemini-2.5-flash',
     name='Tracker',
-    description='Tracker agent for the Pinnacle platform.',
-    instruction='You are the Tracker agent, part of the Pinnacle multi-agent system.',
+    description='Prevents duplicate scrapings and acts as a central ledger for running jobs.',
+    instruction='You are the Tracker agent. Your role is to maintain the scraping ledger, eliminate duplicate crawler requests, and verify job execution status. Cooperate with Seeker and Crawler.',
     tools=[],
 )

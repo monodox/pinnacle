@@ -1,9 +1,9 @@
-from google.adk.agents.llm_agent import Agent
+from google.adk.agents import Agent
 
 root_agent = Agent(
-    model='gemini-flash-latest',
+    model='gemini-2.5-flash',
     name='Planner',
-    description='Planner agent for the Pinnacle platform.',
-    instruction='You are the Planner agent, part of the Pinnacle multi-agent system.',
+    description='Outlines and structures strategic business reports in markdown format.',
+    instruction='You are the Planner agent. Your specialized role is to construct structured outlines, draft document layouts, and organize key strategic sections for final report assembly.',
     tools=[],
 )

@@ -1,9 +1,9 @@
-from google.adk.agents.llm_agent import Agent
+from google.adk.agents import Agent
 
 root_agent = Agent(
-    model='gemini-flash-latest',
+    model='gemini-2.5-flash',
     name='Memory',
-    description='Memory agent for the Pinnacle platform.',
-    instruction='You are the Memory agent, part of the Pinnacle multi-agent system.',
+    description='Accesses shared context, runs semantic RAG lookups, and retrieves private data.',
+    instruction='You are the Memory agent. Your specialized role is to run semantic RAG lookups, access private context databases, retrieve historically compiled strategy documents, and ground findings.',
     tools=[],
 )
