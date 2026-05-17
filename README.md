@@ -1,5 +1,7 @@
 # Pinnacle
 
+![Pinnacle Logo](src/assets/logo/logo-dark.png)
+
 **Pinnacle** is an autonomous business intelligence platform powered by AI agents. It takes a business question and returns a complete strategic answer — researching the market, analyzing competitors, modeling data, and generating a ready-to-use strategy report, all without human intervention. Think of it as a research team and strategy consultant running 24/7, at a fraction of the cost.
 
 ## Features
@@ -32,7 +34,10 @@
 - npm or yarn
 
 ### Installation
-1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/monodox/pinnacle.git
+   ```
 2. Install dependencies:
    ```bash
    npm install
