@@ -18,6 +18,7 @@
 - shadcn/ui
 
 ## Project Structure
+- `agents`: Autonomous AI Agent backend (Python ADK) containing Seeker, Crawler, Tracker, Analyst, Planner, Writer, Memory, and Director.
 - `src/pages/site`: Public-facing landing pages (Home, etc.)
 - `src/pages/auth`: Authentication screens (Login, Signup, Forgot Password, Reset Password)
 - `src/pages/legal`: Legal documents (Terms, Privacy, Cookies)
@@ -47,10 +48,18 @@
    cp .env.example .env.local
    ```
 
-### Running the Application
+### Running the Frontend Application
 ```bash
 npm run dev
 ```
+
+### Running the Multi-Agent Backend
+1. Navigate into the `agents` folder.
+2. Follow the detailed ADK backend setup and launch instructions in [agents/README.md](agents/README.md).
+3. Interact with the multi-agent system using the ADK Web UI:
+   ```bash
+   adk web --port 8000
+   ```
 
 ## Contributing
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.

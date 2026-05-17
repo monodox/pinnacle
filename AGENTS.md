@@ -8,6 +8,7 @@ Welcome! If you are an AI agent or a new teammate working on the **Pinnacle** pr
 - **Language**: TypeScript (Strict mode enabled).
 
 ## 2. Directory Structure
+- `/agents`: Autonomous AI Agent backend (Python ADK) containing Seeker, Crawler, Tracker, Analyst, Planner, Writer, Memory, and Director.
 - `/src/pages/site`: Public-facing landing pages (Home, etc.)
 - `/src/pages/auth`: Authentication screens (Login, Signup, Forgot Password, Reset Password)
 - `/src/pages/legal`: Legal documents (Terms, Privacy, Cookies)
@@ -47,3 +48,20 @@ Welcome! If you are an AI agent or a new teammate working on the **Pinnacle** pr
 - **Commits**: Follow conventional commits (e.g., `feat: added authentication layout`, `fix: resolved lint warnings`).
 - **Pull Requests**: Keep PRs small and focused on a single feature or bug fix. Provide a clear description and attach screenshots for UI changes.
 - **Deployment**: The `main` branch is automatically deployed to our staging environment. Production deployments require manual approval.
+
+## 8. Multi-Agent Backend (Python ADK)
+Pinnacle utilizes the Google **Agent Development Kit (ADK)** to orchestrate a team of 8 specialized AI agents residing in the `/agents` folder:
+- **Director**: The main workflow coordinator and synthesizer.
+- **Seeker**: Information research strategist.
+- **Crawler**: Content extraction and scraping utility.
+- **Tracker**: Scraping ledger and duplicate preventer.
+- **Analyst**: Numerical and market data extractor.
+- **Planner**: Outlines strategic markdown documents.
+- **Writer**: Compiles strategic reports.
+- **Memory**: The system's shared context / RAG database.
+
+### Agent Conventions
+- Each agent must reside in its own subdirectory inside `/agents/` named after the agent (e.g. `/agents/Seeker/`).
+- The main control script must be named `agent.py` and export a single `root_agent` instance of `google.adk.agents.llm_agent.Agent`.
+- API keys and local configs are stored centrally inside `agents/.env.local`. Do NOT add environment files to individual agent subfolders.
+- The root `agents/.gitignore` protects python virtual environments (`.venv/`) and local configs from version control.
